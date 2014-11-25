@@ -4,6 +4,7 @@
 //
 var Bot = require('./bot')
   , config1 = require('../config1');
+var fs = require('fs');
 
 var bot = new Bot(config1);
 
@@ -16,6 +17,18 @@ function datestring () {
      +  (d.getUTCMonth() + 1) + '-'
      +   d.getDate();
 };
+
+function randomtweet() {
+  // var tweets=fs.readFileSync('./tweets');
+  // tweets= JSON.parse(tweets);
+  var tweets= require('./tweets');
+  var tweet= tweets[Math.floor(Math.random()*(tweets.length))].text;
+  bot.tweet(tweet, function (err, reply) {
+    if(err) return handleError(err);
+
+    console.log('\nTweet: ' + (reply ? reply.text : reply));
+  })
+}
 
 setInterval(function() {
   bot.twit.get('followers/ids', function(err, reply) {
@@ -61,7 +74,9 @@ setInterval(function() {
       var name = reply.screen_name;
       console.log('\nMingle: followed @' + name);
     });
-  } else {                  //  prune a friend
+  } else if(rand<=0.70){ // random tweet from file
+    randomtweet();
+  }else {                  //  prune a friend
     bot.prune(function(err, reply) {
       if(err) return handleError(err);
 

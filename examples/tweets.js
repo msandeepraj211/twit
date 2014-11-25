@@ -1,0 +1,11 @@
+module.exports=[
+	{
+	"text":"tweetone"
+	},
+	{
+	"text":"tweet2"
+	},
+	{
+	"text":"tweet3"
+	}
+]
