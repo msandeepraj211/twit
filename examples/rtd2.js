@@ -19,8 +19,6 @@ function datestring () {
 };
 
 function randomtweet() {
-  // var tweets=fs.readFileSync('./tweets');
-  // tweets= JSON.parse(tweets);
   var tweets= require('./tweets');
   var tweet= tweets[Math.floor(Math.random()*(tweets.length))].text;
   bot.tweet(tweet, function (err, reply) {
